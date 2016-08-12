@@ -1,4 +1,6 @@
-﻿using Prism.Unity;
+﻿using Akavache;
+using Microsoft.Practices.Unity;
+using Prism.Unity;
 using WinterSoldier.Views;
 
 namespace WinterSoldier
@@ -12,11 +14,16 @@ namespace WinterSoldier
             InitializeComponent();
 
             NavigationService.NavigateAsync("MainPage?title=Hello%20from%20Xamarin.Forms");
+            BlobCache.ApplicationName = "WinterSoldier";
+
+            BlobCache.LocalMachine.InsertObject("this_key", 1);
+
         }
 
         protected override void RegisterTypes()
         {
             Container.RegisterTypeForNavigation<MainPage>();
+            Container.RegisterInstance(BlobCache.LocalMachine);
         }
     }
 }
